@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4905c816.chunk.css",
+    "main.js": "/static/js/main.11ea4b81.chunk.js",
+    "main.js.map": "/static/js/main.11ea4b81.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.40a1f7f3.js",
+    "runtime-main.js.map": "/static/js/runtime-main.40a1f7f3.js.map",
+    "static/js/2.1965b275.chunk.js": "/static/js/2.1965b275.chunk.js",
+    "static/js/2.1965b275.chunk.js.map": "/static/js/2.1965b275.chunk.js.map",
+    "static/js/3.1f032b28.chunk.js": "/static/js/3.1f032b28.chunk.js",
+    "static/js/3.1f032b28.chunk.js.map": "/static/js/3.1f032b28.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.4905c816.chunk.css.map": "/static/css/main.4905c816.chunk.css.map",
+    "static/js/2.1965b275.chunk.js.LICENSE.txt": "/static/js/2.1965b275.chunk.js.LICENSE.txt",
+    "static/js/main.11ea4b81.chunk.js.LICENSE.txt": "/static/js/main.11ea4b81.chunk.js.LICENSE.txt",
+    "static/media/hiviz-world.webflow.css": "/static/media/tadgh-gen.556e545c.PNG"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.40a1f7f3.js",
+    "static/js/2.1965b275.chunk.js",
+    "static/css/main.4905c816.chunk.css",
+    "static/js/main.11ea4b81.chunk.js"
+  ]
+}
