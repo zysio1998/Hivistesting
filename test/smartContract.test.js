@@ -1,8 +1,8 @@
-const SmartContract = artifacts.require("./AreksNFTS.sol");
+const SmartContract = artifacts.require("./TestingMek.sol");
 
 require("chai").use(require("chai-as-promised")).should();
 
-contract("AreksNFTS", (accounts) => {
+contract("TestingMek", (accounts) => {
   let smartContract;
 
   before(async () => {

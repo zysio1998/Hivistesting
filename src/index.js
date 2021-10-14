@@ -10,9 +10,8 @@ import "./styles/webflow.js";
 
 import "./styles/normalize.css";
 import "./styles/webflow.css";
-import "./styles/hiviz-world.webflow.css";
+import "./styles/meka-network.webflow.css";
 
-//C:\Users\zysio\OneDrive\Documents\NFT\05.10.21 Exhale-Mint()\NFT\example_nft_minter\src\js\webflow.js
 
 ReactDOM.render(
   <Provider store={store}>

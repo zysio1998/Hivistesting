@@ -4,6 +4,7 @@ import { connect } from "./redux/blockchain/blockchainActions";
 import { fetchData } from "./redux/data/dataActions";
 import * as s from "./styles/globalStyles";
 import styled from "styled-components";
+import { useWallet, UseWalletProvider } from 'use-wallet'
 
 
 export const StyledButton = styled.button`
@@ -41,25 +42,25 @@ export const ResponsiveWrapper = styled.div`
 
 
 function App() {
+  const wallet = useWallet()
   const dispatch = useDispatch();
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
   const [feedback, setFeedback] = useState("Maybe it's your lucky day.");
   const [claimingNft, setClaimingNft] = useState(false);
+  const [mintAmount, setMintAmount] = useState(1);
 
-  const claimNFTs = (_amount) => {
-    if (_amount <= 0) {
-      return;
-    }
-    setFeedback("Minting your Hivis NFT...");
+  const claimNFTs = () => {
+  
+    setFeedback(`Minting your NFTS...`);
     setClaimingNft(true);
     blockchain.smartContract.methods
-      .mint(blockchain.account, _amount)
+      .mint(blockchain.account,mintAmount)
       .send({
-        //gasLimit: "285000", //uncomment if ya want a limit, but it can cause issues
-        to: "0x542dbe8d6df7464d772bc8d16f02dcc9a19f349e",
+        gasLimit: "285000", //uncomment if ya want a limit
+        to: "0xc685707c9405034BDAb95eb6EE2Bc4c2360D12B5",
         from: blockchain.account,
-        value: blockchain.web3.utils.toWei((0.05 * _amount).toString(), "ether"),
+        value: blockchain.web3.utils.toWei((0.05 * mintAmount).toString(), "ether"),
       })
       .once("error", (err) => {
         console.log(err);
@@ -67,13 +68,15 @@ function App() {
         setClaimingNft(false);
       })
       .then((receipt) => {
+        console.log(receipt);
         setFeedback(
-          "WOW, you now own a Hivis NFT. go visit Opensea.io to view it."
+          `WOW, the NFT is yours! go visit Opensea.io to view it.`
         );
         setClaimingNft(false);
         dispatch(fetchData(blockchain.account));
       });
   };
+  
 
   const getData = () => {
     if (blockchain.account !== "" && blockchain.smartContract !== null) {
@@ -177,9 +180,46 @@ function App() {
           </s.Container>
         </ResponsiveWrapper>      
       </s.Container>
+      <h1>Wallet</h1>
+      {wallet.status === 'connected' ? (
+        <div>
+          <div>Account: {wallet.account}</div>
+          <div>Balance: {wallet.balance}</div>
+          <div>Balance: {wallet.chainId}</div>          
+          <div>Account: {blockchain.account}</div>
+          
+          {feedback}
+          {data.totalSupply}/1000
+          <button onClick={() => wallet.reset()}>disconnect</button>
+          <button disabled={claimingNft ? 1 : 0} onClick={(e) => {e.preventDefault();claimNFTs(1);getData();}}>Mint</button>
+          
+        </div>
+      ) : (
+        <div>
+          Connect:
+          <button onClick={(e) => {e.preventDefault(); wallet.connect();dispatch(connect());getData();}}>MetaMask</button>         
+          
+          
+          
+        </div>
+      )}
     </s.Screen>
+
+    
     
   );
 }
 
-export default App;
+// Wrap everything in <UseWalletProvider />
+export default () => (
+  <UseWalletProvider
+    chainId={4}
+    connectors={{
+      // This is how connectors get configured means Metamask
+      //provided: {provider: window.cleanEthereum}
+      portis: { dAppId: 'my-dapp-id-123-xyz' },
+    }}
+  >
+    <App />
+  </UseWalletProvider>
+)

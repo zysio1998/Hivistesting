@@ -39,7 +39,13 @@ export const connect = () => {
     const metamaskIsInstalled = ethereum && ethereum.isMetaMask;
     if (metamaskIsInstalled) {
       Web3EthContract.setProvider(ethereum);
+      
+      //document.getElementById ("enableEthereumButton").addEventListener('click', () => {ethereum.request({ method: 'eth_requestAccounts' });});
+      
       let web3 = new Web3(ethereum);
+
+      //ethereum.request({ method: 'eth_requestAccounts' });
+      
       try {
         const accounts = await ethereum.request({
           method: "eth_requestAccounts",
@@ -51,7 +57,7 @@ export const connect = () => {
         if (networkId == 4) {
           const SmartContractObj = new Web3EthContract(
             SmartContract,
-            "0x542dbe8d6df7464d772bc8d16f02dcc9a19f349e"
+            "0xc685707c9405034BDAb95eb6EE2Bc4c2360D12B5"
           );
           dispatch(
             connectSuccess({
