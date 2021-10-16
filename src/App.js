@@ -6,6 +6,8 @@ import * as s from "./styles/globalStyles";
 import styled from "styled-components";
 import { useWallet, UseWalletProvider } from 'use-wallet'
 
+import HelloWorld from './HelloWorld'
+
 
 export const StyledButton = styled.button`
   padding: 10px;
@@ -48,19 +50,22 @@ function App() {
   const data = useSelector((state) => state.data);
   const [feedback, setFeedback] = useState("Maybe it's your lucky day.");
   const [claimingNft, setClaimingNft] = useState(false);
-  const [mintAmount, setMintAmount] = useState(1);
+  const [_mintAmount, setMintAmount] = useState(false);
 
-  const claimNFTs = () => {
+  const claimNFTs = (_mintAmount) => {
+    if (_mintAmount <= 0) {
+      return;
+    }
   
     setFeedback(`Minting your NFTS...`);
     setClaimingNft(true);
     blockchain.smartContract.methods
-      .mint(blockchain.account,mintAmount)
+      .mint(_mintAmount)
       .send({
-        gasLimit: "285000", //uncomment if ya want a limit
-        to: "0xc685707c9405034BDAb95eb6EE2Bc4c2360D12B5",
+        //gasLimit: "285000", //uncomment if ya want a limit
+        to: "0x941C0CB3976cA5E2CEf5E5F46fe92433D35A0bd5",
         from: blockchain.account,
-        value: blockchain.web3.utils.toWei((0.05 * mintAmount).toString(), "ether"),
+        value: blockchain.web3.utils.toWei((0.05 * _mintAmount).toString(), "ether"),
       })
       .once("error", (err) => {
         console.log(err);
@@ -85,10 +90,13 @@ function App() {
   };
 
   useEffect(() => {
+    
     getData();
+    
   }, [blockchain.account]);
 
   return (
+    
     <s.Screen>
       <s.Container>         
         <ResponsiveWrapper /*flex={1} style={{ padding: 24 }}*/>
@@ -141,6 +149,12 @@ function App() {
                     >
                       CONNECT
                     </StyledButton>
+
+
+                    <HelloWorld></HelloWorld>
+
+
+
                     {blockchain.errorMsg !== "" ? (
                       <>
                         <s.SpacerSmall />
@@ -191,7 +205,7 @@ function App() {
           {feedback}
           {data.totalSupply}/1000
           <button onClick={() => wallet.reset()}>disconnect</button>
-          <button disabled={claimingNft ? 1 : 0} onClick={(e) => {e.preventDefault();claimNFTs(1);getData();}}>Mint</button>
+          <button disabled={claimingNft ? 1 : 0} onClick={(e) => {e.preventDefault();claimNFTs(5);getData();}}>Mint</button>
           
         </div>
       ) : (
