@@ -1,8 +1,10 @@
 {
+  "homepage": ".",
   "name": "meka_lads",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@alch/alchemy-web3": "^1.1.5",
     "@openzeppelin/contracts": "^4.2.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",

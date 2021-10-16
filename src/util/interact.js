@@ -1,3 +1,12 @@
+const alchemyKey = "wss://eth-rinkeby.alchemyapi.io/v2/d3g-2QLWS2IB8rUv1HdrvwI8lRARDwcj";
+const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
+const web3 = createAlchemyWeb3(alchemyKey);
+
+const contractABI = require("../contracts/NCC.json");
+const contractAddress = "0x941C0CB3976cA5E2CEf5E5F46fe92433D35A0bd5";
+
+export const joinAlchemy = new web3.eth.Contract(contractABI, contractAddress);
+
 
 export const connectWallet = async () => {
     if (window.ethereum) {
@@ -13,7 +22,7 @@ export const connectWallet = async () => {
       } catch (err) {
         return {
           address: "",
-          status: "😥 " + err.message,
+          status: "Oh no:  " + err.message,
         };
       }
     } else {
@@ -23,7 +32,7 @@ export const connectWallet = async () => {
           <span>
             <p>
               {" "}
-              🦊{" "}
+              {" "}
               <a target="_blank" href={`https://metamask.io/download.html`}>
                 You must install Metamask, a virtual Ethereum wallet, in your
                 browser.
@@ -44,18 +53,18 @@ export const connectWallet = async () => {
         if (addressArray.length > 0) {
           return {
             address: addressArray[0],
-            status: "👆🏽 Write a message in the text-field above.",
+            status: " Write a message in the text-field above.",
           };
         } else {
           return {
             address: "",
-            status: "🦊 Connect to Metamask using the top right button.",
+            status: "Connect to Metamask using the top right button.",
           };
         }
       } catch (err) {
         return {
           address: "",
-          status: "😥 " + err.message,
+          status: " " + err.message,
         };
       }
     } else {
@@ -65,7 +74,7 @@ export const connectWallet = async () => {
           <span>
             <p>
               {" "}
-              🦊{" "}
+              {" "}
               <a target="_blank" href={`https://metamask.io/download.html`}>
                 You must install Metamask, a virtual Ethereum wallet, in your
                 browser.
